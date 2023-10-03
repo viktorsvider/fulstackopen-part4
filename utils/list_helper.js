@@ -17,7 +17,12 @@ const favouriteBlog = (blogs) => {
             favourite = blog;
         }
     });
-    return favourite
+
+    return {
+        title: favourite.title,
+        author: favourite.author,
+        likes: favourite.likes
+    }
 }
 
 module.exports = {
