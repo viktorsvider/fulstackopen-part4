@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const dummy = (blogs) => {
     return 1
 }
@@ -25,8 +27,21 @@ const favouriteBlog = (blogs) => {
     }
 }
 
+const logger = require('../utils/logger')
+const mostBlogs = (blogs) => {
+    const mostCommonAuthor = _.maxBy(blogs, (blog) => _.filter(blogs, { author: blog.author }).length)
+    const numOccurrences = _.filter(blogs, { author: mostCommonAuthor.author }).length;
+
+    return {
+        author: mostCommonAuthor.author,
+        blogs: numOccurrences
+    }
+}
+
+
 module.exports = {
     dummy,
     totalLikes,
-    favouriteBlog
+    favouriteBlog,
+    mostBlogs
 }
