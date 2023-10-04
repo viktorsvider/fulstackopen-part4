@@ -27,7 +27,6 @@ const favouriteBlog = (blogs) => {
     }
 }
 
-const logger = require('../utils/logger')
 const mostBlogs = (blogs) => {
     const mostCommonAuthor = _.maxBy(blogs, (blog) => _.filter(blogs, { author: blog.author }).length)
     const numOccurrences = _.filter(blogs, { author: mostCommonAuthor.author }).length;
@@ -38,10 +37,22 @@ const mostBlogs = (blogs) => {
     }
 }
 
+const mostLikes = (blogs) => {
+    const groupedAuthors = _.groupBy(blogs, 'author');
+    const authorsWithTotalLikes = _.map(groupedAuthors, (authorBlogs, author) => ({
+        author,
+        likes: _.sumBy(authorBlogs, 'likes'),
+    }));
+
+    const mostLikedAuthor = _.maxBy(authorsWithTotalLikes, 'likes');
+
+    return { author: mostLikedAuthor.author, likes: mostLikedAuthor.likes };
+}
 
 module.exports = {
     dummy,
     totalLikes,
     favouriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
