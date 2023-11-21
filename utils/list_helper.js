@@ -44,6 +44,7 @@ const mostLikes = (blogs) => {
         likes: _.sumBy(authorBlogs, 'likes'),
     }));
 
+    console.log("mostlikes")
     const mostLikedAuthor = _.maxBy(authorsWithTotalLikes, 'likes');
 
     return { author: mostLikedAuthor.author, likes: mostLikedAuthor.likes };
